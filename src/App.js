@@ -32,7 +32,7 @@ const App = () => {
                 key={stepName}
                 className={cx({'activeStep': stepName === steps[step - 1]})}
               >
-                <h2 className='fw5 mb0'>{stepName}</h2>
+                <h2 className='fw5 mb0 pb2'>{stepName}</h2>
               </Grid>
             ))}
           </Grid>

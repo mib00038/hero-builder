@@ -6,43 +6,60 @@ import Button from "@material-ui/core/Button"
 import Grid from "@material-ui/core/Grid"
 import 'App.css'
 import cx from "classnames"
+import HeroSelection from "components/HeroSelection";
+import SkillCustomization from "components/SkillCustomization";
+import ViewResult from "components/ViewResult";
 
 // const URL = 'https://frontend-interview-hero-63u64o32qq-uk.a.run.app'
 // const HEROES = '/heroes'
 
-const steps = ['Class', 'Skills', 'Result']
+const steps = [{
+  stepLabel: 'Class',
+  pageTitle: 'Create Your Hero'
+}, {
+  stepLabel: 'Skills',
+  pageTitle: 'Fine Tune Your Skills'
+}, {
+  stepLabel: 'Result',
+  pageTitle: 'Your Hero is Ready!'
+}]
 
 const App = () => {
-  const [step, setStep] = useState(1)
-  const [progress, setProgress] = useState()
-
-  useEffect(() => {
-    setProgress(Math.round(step * 100/steps.length))
-  }, [step])
+  const [step, setStep] = useState(0)
 
   return (
     <Container maxWidth='lg' className='vh-100'>
       <div className='flex flex-column justify-between h-100'>
         <div className='w-100'>
           <Grid container direction='row' className='w-100 mt4 tc'>
-            {steps.map((stepName) => (
-              <Grid
-                item
-                xs={4}
-                key={stepName}
-                className={cx({'activeStep': stepName === steps[step - 1]})}
-              >
-                <h2 className='fw5 mb0 pb2'>{stepName}</h2>
-              </Grid>
-            ))}
+            {steps.map(({ stepLabel }) => {
+              const isActive = stepLabel === steps[step].stepLabel
+
+              return (
+                <Grid
+                  item
+                  xs={4}
+                  key={stepLabel}
+                  className={cx({'activeStep': isActive})}
+                >
+                  <h2 className={cx('fw5 mb0 pb2', {'dark-blue': isActive})}>
+                    {stepLabel}
+                  </h2>
+                </Grid>
+              )
+            })}
           </Grid>
+          <h1 className='w-100 tc mt5'>
+            {steps[step].pageTitle}
+          </h1>
         </div>
+        <MainContent {...{ step }} />
         <div className='flex justify-between mb5 mh4'>
           <Button
             color='primary'
             variant='contained'
-            onClick={() => setStep(1)}
-            disabled={step === 1}
+            onClick={() => setStep(0)}
+            disabled={step === 0}
           >
             Reset
           </Button>
@@ -50,7 +67,7 @@ const App = () => {
             color='primary'
             variant='contained'
             onClick={() => setStep(step => step + 1)}
-            disabled={step === steps.length}
+            disabled={step === steps.length - 1}
           >
             Next
           </Button>
@@ -60,4 +77,19 @@ const App = () => {
   );
 }
 
+const MainContent = ({ step }) => {
+  switch (step) {
+    case 0:
+      return <HeroSelection />
+    case 1:
+      return <SkillCustomization />
+    case 2:
+      return <ViewResult />
+    default:
+      console.error('Unrecognized step', { step })
+      return null
+  }
+
+
+}
 export default App;

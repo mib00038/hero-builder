@@ -10,8 +10,9 @@ import HeroSelection from "components/HeroSelection";
 import SkillCustomization from "components/SkillCustomization";
 import ViewResult from "components/ViewResult";
 
-// const URL = 'https://frontend-interview-hero-63u64o32qq-uk.a.run.app'
-// const HEROES = '/heroes'
+const URL = 'https://frontend-interview-hero-63u64o32qq-uk.a.run.app'
+const HEROES = '/heroes'
+const START_STEP = 0
 
 const steps = [{
   stepLabel: 'Class',
@@ -26,7 +27,20 @@ const steps = [{
 
 const App = () => {
   const [step, setStep] = useState(0)
+  const [heroes, setHeroes] = useState([])
 
+  useEffect(() => {
+    if (step === START_STEP) {
+      fetch(URL.concat(HEROES))
+        .then(resp => resp.json())
+        .then(data => setHeroes(data))
+    }
+  }, [step])
+
+  useEffect(() => {
+    console.log({ heroes })
+  }, [heroes])
+  
   return (
     <Container maxWidth='lg' className='vh-100'>
       <div className='flex flex-column justify-between h-100'>

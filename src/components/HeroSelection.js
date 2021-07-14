@@ -6,9 +6,9 @@ import brokenImage from 'broken-image.png'
 const HeroSelection  = ({ heroes, hero = -1, setHero }) => {
   return (
     <Grid container className='w-100 justify-center' spacing={4}>
-      {heroes.map(({name, id, image}, index) => {
+      {heroes.map(({ name, id, image }) => {
         const handleImgOnError = (e) => e.target.src = brokenImage
-        const handleOnClick = () => setHero(heroes[index].id)
+        const handleOnClick = () => setHero(id)
 
         return (
           <Grid
@@ -19,7 +19,7 @@ const HeroSelection  = ({ heroes, hero = -1, setHero }) => {
             onClick={handleOnClick}
           >
             <h1 className='tc f2 fw5 ttu mb3'>{name}</h1>
-            <Paper square elevation={hero === index ? 6: 1}>
+            <Paper square elevation={hero === id ? 6: 1}>
               <img
                 aria-label={name}
                 src={MAIN_URL.concat(image)}

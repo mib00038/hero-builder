@@ -7,6 +7,7 @@ import cx from "classnames"
 import HeroSelection from "components/HeroSelection"
 import SkillCustomization from "components/SkillCustomization"
 import ViewResult from "components/ViewResult"
+import isEmpty from "lodash/isEmpty"
 
 export const MAIN_URL = 'https://frontend-interview-hero-63u64o32qq-uk.a.run.app'
 const HEROES = '/heroes'
@@ -26,7 +27,7 @@ const steps = [{
 const App = () => {
   const [step, setStep] = useState(0)
   const [heroes, setHeroes] = useState([])
-  const [hero, setHero] = useState(null)
+  const [hero, setHero] = useState({})
 
   useEffect(() => {
     if (step === START_STEP) {
@@ -35,14 +36,6 @@ const App = () => {
         .then(data => setHeroes(data.heroes))
     }
   }, [step])
-
-  useEffect(() => {
-    console.log({ heroes })
-  }, [heroes])
-
-  useEffect(() => {
-    console.log({ hero })
-  }, [hero])
 
   return (
     <Container maxWidth='lg' className='vh-100'>
@@ -69,14 +62,17 @@ const App = () => {
           <h1 className='w-100 tc mt5 f2'>
             {steps[step].pageTitle}
           </h1>
-          <MainContent {...{ step, heroes, hero, setHero }} />
+          <MainContent {...{ step, heroes, setHeroes, hero, setHero }} />
         </div>
 
         <div className='flex justify-between mb5 mh4'>
           <Button
             color='primary'
             variant='contained'
-            onClick={() => setStep(0)}
+            onClick={() => {
+              setStep(0)
+              setHero({})
+            }}
             disabled={step === 0}
           >
             Reset
@@ -85,7 +81,7 @@ const App = () => {
             color='primary'
             variant='contained'
             onClick={() => setStep(step => step + 1)}
-            disabled={step === steps.length - 1}
+            disabled={isEmpty(hero)}
           >
             Next
           </Button>
@@ -95,19 +91,18 @@ const App = () => {
   );
 }
 
-const MainContent = ({ step, heroes, hero, setHero }) => {
+const MainContent = ({ step, heroes, setHeroes, hero, setHero }) => {
   switch (step) {
     case 0:
-      return <HeroSelection {...{ heroes, hero, setHero }} />
+      return <HeroSelection {...{ heroes, setHeroes, hero, setHero }} />
     case 1:
-      return <SkillCustomization />
+      return <SkillCustomization {...{ hero, setHero }} />
     case 2:
       return <ViewResult />
     default:
       console.error('Unrecognized step', { step })
       return null
   }
-
-
 }
+
 export default App

@@ -1,14 +1,20 @@
+import React, { useEffect } from "react"
 import { MAIN_URL } from "App"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
 import brokenImage from 'broken-image.png'
 
-const HeroSelection  = ({ heroes, hero = -1, setHero }) => {
+const HeroSelection  = ({ heroes, setHeroes, hero, setHero }) => {
+  useEffect(() => {
+    return () => setHeroes([])
+  }, [setHeroes])
+
   return (
     <Grid container className='w-100 justify-center' spacing={4}>
-      {heroes.map(({ name, id, image }) => {
+      {heroes.map((_hero) => {
+        const { name, id, image } = _hero
+        const handleOnClick = () => setHero(_hero)
         const handleImgOnError = (e) => e.target.src = brokenImage
-        const handleOnClick = () => setHero(id)
 
         return (
           <Grid
@@ -19,7 +25,7 @@ const HeroSelection  = ({ heroes, hero = -1, setHero }) => {
             onClick={handleOnClick}
           >
             <h1 className='tc f2 fw5 ttu mb3'>{name}</h1>
-            <Paper square elevation={hero === id ? 6: 1}>
+            <Paper square elevation={hero.id === id ? 6: 1}>
               <img
                 aria-label={name}
                 src={MAIN_URL.concat(image)}

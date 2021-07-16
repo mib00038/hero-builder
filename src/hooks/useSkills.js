@@ -9,7 +9,7 @@ const useSkills = ({ hero, hero: { skills }, setHero }) => {
   const [pointsRemaining, setPointsRemaining] = useState(MAX_TOTAL_POINTS)
   const [adjustIndex, setAdjustIndex] = useState(0)
 
-  const handleChange = (index) => (evt, val) => {
+  const handleSkillChange = (index) => (evt, val) => {
     setSkillIndexTouched(index)
     setHero(produce(hero, draft => {
       draft.skills[index].points = val
@@ -29,17 +29,29 @@ const useSkills = ({ hero, hero: { skills }, setHero }) => {
 
     if (totalPoints > MAX_TOTAL_POINTS) {
       const newSkills = produce(skills, draft => {
-        if (adjustIndex !== skillIndexTouched && draft[adjustIndex].points > 0) {
-          draft[adjustIndex].points = draft[adjustIndex].points - 1
-        }
-        setAdjustIndex(prev => prev === skills.length - 1 ? 0 : prev + 1)
+        let adjustPoints = totalPoints - MAX_TOTAL_POINTS
+        let index = adjustIndex
+
+        do {
+
+          if (index !== skillIndexTouched && draft[index].points > 0) {
+            draft[index].points = draft[index].points - 1
+            adjustPoints--
+          }
+
+          index = index === skills.length - 1 ? 0 : index + 1
+
+        } while (adjustPoints)
+
+        setAdjustIndex(index)
+
       })
 
       setHero(prev => produce(prev, draft => {
         draft.skills = newSkills
       }))
     }
-  }, [setHero, skills, adjustIndex, skillIndexTouched])
+  }, [skills, setHero, adjustIndex, skillIndexTouched])
 
   useEffect(() => {
     const remainingPoints = Math.max(0, MAX_TOTAL_POINTS - totalPoints)
@@ -47,7 +59,7 @@ const useSkills = ({ hero, hero: { skills }, setHero }) => {
   }, [totalPoints])
 
 
-  return { pointsRemaining, handleChange }
+  return { pointsRemaining, handleSkillChange }
 }
 
 export default useSkills

@@ -1,7 +1,24 @@
+
+.blue-ribbon {
+  color: #6558F5;
+}
+
 .activeStep {
-  border-bottom: 4px solid blue;
+  border-bottom: 4px solid #6558F5;
+}
+
+.slider-thumb.MuiSlider-thumb:hover  {
+  box-shadow: 0 0 0 6px rgba(63, 81, 181, 0.16);
+}
+
+.MuiSlider-active.slider-thumb.MuiSlider-thumb:hover {
+  box-shadow: 0 0 0 10px rgba(63, 81, 181, 0.16);
 }
 
 .cover {
   object-fit: cover;
+}
+
+.MuiPaper-elevation6.image-paper {
+  box-shadow: 0 2px 12px 0 rgba(101, 88, 245, 0.2), 0 2px 12px 0 rgba(101, 88, 245, 0.10),0 2px 12px 0 rgba(101, 88, 245, 0.05);
 }

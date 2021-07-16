@@ -38,10 +38,10 @@ const App = () => {
   }, [step])
 
   return (
-    <Container maxWidth='lg' className='vh-100'>
-      <div className='flex flex-column justify-between h-100'>
-        <div className='w-100 ph4'>
-          <Grid container direction='row' className='w-100 mt4 tc'>
+    <Container maxWidth='md' className='bg-white vh-100'>
+      <div className='flex flex-wrap h-100'>
+        <div className='w-100 relative'>
+          <Grid container className='w-100 mt4 tc'>
             {steps.map(({ stepLabel }) => {
               const isActive = stepLabel === steps[step].stepLabel
 
@@ -52,9 +52,9 @@ const App = () => {
                   key={stepLabel}
                   className={cx({'activeStep': isActive})}
                 >
-                  <h2 className={cx('fw5 mb0 pb2', {'dark-blue': isActive})}>
+                  <h1 className={cx('fw5 mb0 pb2', {'blue-ribbon': isActive})}>
                     {stepLabel}
-                  </h2>
+                  </h1>
                 </Grid>
               )
             })}
@@ -63,29 +63,36 @@ const App = () => {
             {steps[step].pageTitle}
           </h1>
           <MainContent {...{ step, heroes, setHeroes, hero, setHero }} />
+          <div className='flex justify-between w-100 pa5'>
+            <div className='ma4 absolute bottom-0 left-2'>
+              <Button
+                color='primary'
+                variant='contained'
+                className='ma4 absolute bottom-0 left-2'
+                onClick={() => {
+                  setStep(0)
+                  setHero({})
+                }}
+                disabled={step === 0}
+                classes={{label: 'ttc f4'}}
+              >
+                Reset
+              </Button>
+            </div>
+            <div className='ma4 absolute bottom-0 right-2'>
+              <Button
+                color='primary'
+                variant='contained'
+                onClick={() => setStep(step => step + 1)}
+                disabled={isEmpty(hero)}
+                classes={{label: 'ttc f4'}}
+              >
+                {step === 0 ? 'Next' : 'Finish'}
+              </Button>
+            </div>
+          </div>
         </div>
 
-        <div className='flex justify-between mb5 mh4'>
-          <Button
-            color='primary'
-            variant='contained'
-            onClick={() => {
-              setStep(0)
-              setHero({})
-            }}
-            disabled={step === 0}
-          >
-            Reset
-          </Button>
-          <Button
-            color='primary'
-            variant='contained'
-            onClick={() => setStep(step => step + 1)}
-            disabled={isEmpty(hero)}
-          >
-            Next
-          </Button>
-        </div>
       </div>
     </Container>
   );

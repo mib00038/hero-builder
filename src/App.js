@@ -43,10 +43,10 @@ const App = () => {
   }, [step])
 
   return (
-    <Container maxWidth='md' className='bg-white'>
-      <div className={cx('vh-100 ph0 flex flex-column justify-between', {'ph2': !isMobile})}>
+    <Container maxWidth='lg' className='bg-white h-100'>
+      <div className={cx('ph0 h-100 flex flex-column justify-between', {'ph2': !isMobile})}>
         <section className={cx({ 'pb6': isMobile })}>
-          <StepHeader {...{ steps, step }} />
+          <StepHeader {...{ steps, step, isMobile }} />
           <PageTitle {...{ steps, step, isMobile }} />
           <MainContent {...{ step, heroes, setHeroes, hero, setHero, isMobile }} />
         </section>
@@ -60,7 +60,7 @@ const App = () => {
 }
 
 const PageTitle = ({ steps, step, isMobile }) => (
-  <h1 className={cx('w-100 tc mt5 f2', {'mb6': !isMobile}, { 'mb5': isMobile } )}>
+  <h1 className={cx('w-100 tc f2', {'mb6 mt5 ': !isMobile}, { 'mt4 mb4 f3': isMobile } )}>
     {steps[step].pageTitle}
   </h1>
 )
@@ -68,9 +68,9 @@ const PageTitle = ({ steps, step, isMobile }) => (
 const MainContent = ({ step, heroes, setHeroes, hero, setHero, isMobile }) => {
   switch (step) {
     case 0:
-      return <HeroSelection {...{ heroes, setHeroes, hero, setHero }} />
+      return <HeroSelection {...{ heroes, setHeroes, hero, setHero, isMobile }} />
     case 1:
-      return <SkillCustomization {...{ hero, setHero }} />
+      return <SkillCustomization {...{ hero, setHero, isMobile }} />
     case 2:
       return <ViewResult {...{ hero, isMobile }} />
     default:

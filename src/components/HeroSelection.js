@@ -5,7 +5,20 @@ import cx from 'classnames'
 import produce from "immer"
 import HeroImage from "components/HeroImage"
 
-const HeroSelection  = ({ heroes, setHeroes, hero, setHero }) => {
+const getGridSizes = (totalItems) => {
+  switch (totalItems) {
+    case 2:
+      return {lg: 6, md: 6}
+    case 3:
+      return {lg: 4, md: 4}
+    default:
+      return {lg: 3, md: 4}
+  }
+}
+
+const HeroSelection  = ({ heroes, setHeroes, hero, setHero, isMobile }) => {
+  const { md, lg } = getGridSizes(heroes.length)
+
   useEffect(() => {
     return () => setHeroes([])
   }, [setHeroes])
@@ -27,15 +40,17 @@ const HeroSelection  = ({ heroes, setHeroes, hero, setHero }) => {
             <Grid
               key={id}
               item
-              xs={12} sm={6} md={4} lg={3}
+              xs={12} sm={6} md={md} lg={lg}
               className='flex flex-column justify-center'
               onClick={handleOnClick}
-              style={{maxWidth: 300}}
+              style={{maxWidth: 340}}
             >
               <h1
                 className={cx(
-                  'tc f2 fw5 ttu mb3',
-                  {'blue-ribbon': id === hero.id}
+                  'tc f2 fw5 ttu',
+                  {'blue-ribbon': id === hero.id},
+                  {'f3 mb1': isMobile},
+                  {'mb3': !isMobile}
                 )}
               >
                 {name}

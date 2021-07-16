@@ -1,9 +1,9 @@
 #root {
     background-color: #fafafa !important;
+    height: 100vh;
 }
 
 body {
     background-color: white !important;
-    height: 100vh !important;
     margin: 0;
 }

@@ -4,11 +4,11 @@ import Grid from "@material-ui/core/Grid"
 import Container from "@material-ui/core/Container"
 import cx from 'classnames'
 
-const ViewResult = ({ hero: { name, imageUrl, skills, isActive }, isMobile }) => (
+const ViewResult = ({ hero: { name, imageUrl, skills }, isMobile }) => (
   <Container maxWidth={isMobile ? 'xs' : 'md'}>
     <Grid container spacing={4} wrap='wrap-reverse'>
       <Grid item xs={12} sm={6} className={cx('flex justify-end', { 'justify-center': isMobile } )}>
-        <HeroImage {...{ name, imageUrl, isActive }} />
+        <HeroImage {...{ name, imageUrl }} isActive />
       </Grid>
       <Grid item xs={12} sm={6} className={cx({'w-100 flex flex-wrap justify-start' : isMobile })}>
         <h1

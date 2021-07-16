@@ -5,14 +5,14 @@ import Grid from "@material-ui/core/Grid"
 import SkillSlider from "components/SkillSlider"
 import cx from 'classnames'
 
-const SkillCustomization = ({ hero, setHero }) => {
+const SkillCustomization = ({ hero, setHero, isMobile }) => {
   const { skills } = hero
   const { pointsRemaining, handleSkillChange } = useSkills({ hero, setHero })
 
   return (
     <Container maxWidth='sm'>
       <div className='flex flex-wrap w-100'>
-        <h1 className='fw5 w-100 flex flex-wrap items-center justify-center'>
+        <h1 className={cx('fw5 w-100 flex flex-wrap items-center justify-center', { 'f4': isMobile })}>
           Remaining: <div style={{ minWidth: '3rem' }} className={cx('mh2 tr')}>{pointsRemaining}</div> points
         </h1>
         {skills.map(({name, points = 0}, index) => (

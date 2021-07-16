@@ -1,3 +1,9 @@
-const ViewResult = () => <div/>
+const ViewResult = () => {
+  return (
+    <div>
+
+    </div>
+  )
+}
 
 export default ViewResult

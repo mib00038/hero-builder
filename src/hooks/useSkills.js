@@ -54,7 +54,7 @@ const useSkills = ({ hero, hero: { skills }, setHero }) => {
   }, [skills, setHero, adjustIndex, skillIndexTouched])
 
   useEffect(() => {
-    const remainingPoints = Math.max(0, MAX_TOTAL_POINTS - totalPoints)
+    const remainingPoints = Math.max(0, MAX_TOTAL_POINTS - totalPoints) || 0
     setPointsRemaining(remainingPoints)
   }, [totalPoints])
 

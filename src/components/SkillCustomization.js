@@ -3,7 +3,6 @@ import useSkills from "hooks/useSkills"
 import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
 import SkillSlider from "components/SkillSlider"
-import { Fade } from "@material-ui/core"
 import cx from 'classnames'
 
 const SkillCustomization = ({ hero, setHero }) => {
@@ -13,11 +12,9 @@ const SkillCustomization = ({ hero, setHero }) => {
   return (
     <Container maxWidth='sm'>
       <div className='flex flex-wrap w-100'>
-        <Fade in timeout={600}>
-          <h1 className='fw5 w-100 flex flex-wrap items-center justify-center'>
-            Remaining: <div style={{ minWidth: '3rem' }} className={cx('mh2 tr')}>{pointsRemaining}</div> points
-          </h1>
-        </Fade>
+        <h1 className='fw5 w-100 flex flex-wrap items-center justify-center'>
+          Remaining: <div style={{ minWidth: '3rem' }} className={cx('mh2 tr')}>{pointsRemaining}</div> points
+        </h1>
         {skills.map(({name, points = 0}, index) => (
           <Grid container key={name} className='mb2'>
             <Grid item>

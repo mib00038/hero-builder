@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import Container from '@material-ui/core/Container'
 import 'App.css'
 import HeroSelection from "components/HeroSelection"
 import SkillCustomization from "components/SkillCustomization"
 import ViewResult from "components/ViewResult"
 import ButtonControls from "components/ButtonControls"
 import StepHeader from "components/StepHeader"
-import cx from 'classnames'
-import { useTheme } from "@material-ui/core/styles"
+import Container from '@material-ui/core/Container'
+import useTheme from "@material-ui/core/styles/useTheme"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Divider from "@material-ui/core/Divider"
+import cx from 'classnames'
 
-export const MAIN_URL = 'https://frontend-interview-hero-63u64o32qq-uk.a.run.app'
+export const HERO_URL = 'https://frontend-interview-hero-63u64o32qq-uk.a.run.app'
 const HEROES = '/heroes'
 const START_STEP = 0
 
@@ -36,7 +36,7 @@ const App = () => {
 
   useEffect(() => {
     if (step === START_STEP) {
-      fetch(MAIN_URL.concat(HEROES))
+      fetch(HERO_URL.concat(HEROES))
         .then(resp => resp.json())
         .then(data => setHeroes(data.heroes))
     }
@@ -44,16 +44,20 @@ const App = () => {
 
   return (
     <Container maxWidth='lg' className='bg-white h-100'>
-      <div className={cx('ph0 h-100 flex flex-column justify-between', {'ph2': !isMobile})}>
+      <div className={cx('ph0 h-100 flex flex-column justify-between', { 'ph2': !isMobile })}>
         <section className={cx({ 'pb6': isMobile })}>
-          <StepHeader {...{ steps, step, isMobile }} />
-          <PageTitle {...{ steps, step, isMobile }} />
-          <MainContent {...{ step, heroes, setHeroes, hero, setHero, isMobile }} />
+          <header>
+            <StepHeader {...{ steps, step, isMobile }} />
+          </header>
+          <main>
+            <PageTitle {...{ steps, step, isMobile }} />
+            <MainContent {...{ step, heroes, setHeroes, hero, setHero, isMobile }} />
+          </main>
         </section>
-        <div className={cx({'mt4': !isMobile}, {'fixed bottom-0 left-0 w-100 bg-white': isMobile})}>
-          <Divider variant='fullWidth' className={cx({ 'dn': !isMobile })} classes={{root: 'divider-root'}}/>
+        <footer className={cx({'mt4': !isMobile}, { 'fixed bottom-0 left-0 w-100 bg-white': isMobile })}>
+          <Divider variant='fullWidth' className={cx({ 'dn': !isMobile })} classes={{ root: 'divider-root' }}/>
           <ButtonControls {...{ step, setStep, hero, setHero, isMobile }} />
-        </div>
+        </footer>
       </div>
     </Container>
   );

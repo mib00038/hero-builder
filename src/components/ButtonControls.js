@@ -1,7 +1,7 @@
 import React from "react"
 import Button from "@material-ui/core/Button"
 import isEmpty from "lodash/isEmpty"
-import cx from 'classnames'
+import cx from "classnames"
 
 const ButtonControls = ({ step, setStep, hero, setHero }) => {
   return (

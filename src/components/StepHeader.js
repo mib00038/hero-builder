@@ -1,6 +1,6 @@
-import Grid from "@material-ui/core/Grid";
-import cx from "classnames";
-import React from "react";
+import React from "react"
+import Grid from "@material-ui/core/Grid"
+import cx from "classnames"
 
 const StepHeader = ({ steps, step, isMobile }) => (
   <Grid container className='w-100 mt4 tc'>

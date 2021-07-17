@@ -2,10 +2,9 @@ import React from "react"
 import withStyles from "@material-ui/core/styles/withStyles"
 import MuiSlider from "@material-ui/core/Slider"
 
-
 const Slider = withStyles({
   root: {
-    color: '#6558F5'
+    color: 'var(--blue-ribbon)'
   },
   track: {
     height: 6,

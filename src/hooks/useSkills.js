@@ -16,13 +16,6 @@ const useSkills = ({ hero, hero: { skills }, setHero }) => {
     }))
   }
 
-  // onMount: initialize each skill with 0 points
-  useEffect(() => {
-    setHero(prev => produce(prev, draft => {
-      draft.skills.forEach(skill => skill.points = 0)
-    }))
-  }, [setHero])
-
   useEffect(() => {
     const totalPoints = skills.reduce((acc, cur) => acc + cur.points, 0)
     setTotalPoints(totalPoints)
@@ -54,10 +47,9 @@ const useSkills = ({ hero, hero: { skills }, setHero }) => {
   }, [skills, setHero, adjustIndex, skillIndexTouched])
 
   useEffect(() => {
-    const remainingPoints = Math.max(0, MAX_TOTAL_POINTS - totalPoints) || 0
+    const remainingPoints = Math.max(0, MAX_TOTAL_POINTS - totalPoints)
     setPointsRemaining(remainingPoints)
   }, [totalPoints])
-
 
   return { pointsRemaining, handleSkillChange }
 }

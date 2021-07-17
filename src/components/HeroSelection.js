@@ -1,5 +1,5 @@
 import React, { useEffect } from "react"
-import { MAIN_URL } from "App"
+import { HERO_URL } from "App"
 import Grid from "@material-ui/core/Grid"
 import cx from 'classnames'
 import produce from "immer"
@@ -29,10 +29,11 @@ const HeroSelection  = ({ heroes, setHeroes, hero, setHero, isMobile }) => {
         {heroes.map((_hero) => {
           const {name, id, image} = _hero
           const isActive = hero.id === id
-          const imageUrl = MAIN_URL.concat(image)
+          const imageUrl = HERO_URL.concat(image)
           const handleOnClick = () => {
             setHero(produce(_hero, draft => {
               draft.imageUrl = imageUrl
+              draft.skills.forEach(skill => skill.points = 0)
             }))
           }
 

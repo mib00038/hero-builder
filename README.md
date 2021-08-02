@@ -63,6 +63,3 @@ Response will include available heroes (between 2-4), for each:
 
 ## Submission
 Please organize your code and push your changes to the master branch.
-___
-All the best,  
-The StreamElements team
